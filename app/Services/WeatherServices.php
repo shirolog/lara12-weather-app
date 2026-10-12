@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use Exception;
 use Illuminate\Support\Facades\Http;
-
-use function PHPUnit\Framework\throwException;
 
 class WeatherServices
 {
