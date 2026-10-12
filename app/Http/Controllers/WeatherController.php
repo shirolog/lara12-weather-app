@@ -3,45 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Enums\City;
-use Illuminate\Http\Request;
 
 use App\Services\WeatherServices;
 
-
 class WeatherController extends Controller
-{   
-    protected $weatherSevice;
+{
+    public function __construct(private WeatherServices $weatherService) {}
 
-    public function __construct(WeatherServices $weatherService)
+    public function index()
     {
-        $this->weatherSevice = $weatherService;
-    }
+        $cityName = request('city', 'Tokyo');
 
-    public function index() {
+        $city = City::tryFrom($cityName);
 
-        $cityName = request()->input('city', 'Tokyo');
-        
-        try{
-            $city = City::from($cityName);
-
-        }catch(\Exception $e) {
-            return response()->json(['error' => 'Invalid City Name'], 400);
+        if ($city == null) {
+            abort(404);
         }
-        
-        $cityLocation = $city->getCordinates();
 
-        
-        try{
-            $weatherData = $this->weatherSevice->getWeather($cityLocation['latitude'], $cityLocation['longitude']);
-        }catch(\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        $cityLocation = $city->getCoordinates();
+
+        try {
+            $weatherData = $this->weatherService->getWeather($cityLocation['latitude'], $cityLocation['longitude']);
+        } catch (\Exception $e) {
+            report($e);
+            abort(503, '天気情報を取得できませんでした。');
         }
         // dd($weatherData);
         $cities = City::getAllCities();
         return view('weather.index', compact('weatherData', 'city', 'cities'));
-        
     }
-
-
-    
 }

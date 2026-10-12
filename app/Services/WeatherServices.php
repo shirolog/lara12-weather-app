@@ -2,29 +2,30 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
-class WeatherServices {
+use function PHPUnit\Framework\throwException;
 
-    public function getWeather($latitude, $longitude) {
-
+class WeatherServices
+{
+    public function getWeather(float $latitude, float $longitude)
+    {
         $url = 'https://api.open-meteo.com/v1/forecast';
 
-       $response = Http::get($url, [
-
+        $response = Http::get($url, [
             'latitude' => $latitude,
             'longitude' => $longitude,
             'current' => 'temperature_2m,wind_speed_10m',
+            'wind_speed_unit' => 'ms',
             'hourly' => 'temperature_2m',
             'timezone' => 'Asia/Tokyo',
-       ]);
+        ]);
 
-       if($response->failed()) {
+        if ($response->failed()) {
+            throw new \Exception('Failed to fetch weather data');
+        }
 
-        throw new \Exception('Failed to fetch weather data');
-
-       }
-
-       return $response->json();
+        return $response->json();
     }
 }

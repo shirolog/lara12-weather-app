@@ -10,7 +10,7 @@ enum City: string {
     case Fukuoka = 'Fukuoka';
     case Nagoya = 'Nagoya';
 
-    public function getCordinates(): array {
+    public function getCoordinates(): array {
 
         return match($this) {
 

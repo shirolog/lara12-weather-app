@@ -18,7 +18,7 @@
                  <img src="{{ asset('images/weather-fine.png') }}" alt="">
 
             </div>
-            <h1 class="text-2xl font-bold mb-4">天気予報-{{ $city }}</h1>
+            <h1 class="text-2xl font-bold mb-4">天気予報-{{ $city->getKanjiName() }}</h1>
             <select name="city" class="mb-4 p-2 border border-gray-300 rounded" id="city-selector">
                 @foreach($cities as $c)
                     <option value="{{ $c['english_name'] }}" {{ $c['english_name'] === $city->value ? 'selected': '' }}>{{ $c['kanji_name'] }}</option>
@@ -35,9 +35,9 @@
 
         </div>
 
-        <div id="weatherModal" class="fixed insert-0 hidden">
+        <div id="weatherModal" class="fixed inset-0 hidden bg-black/50">
             <div class="flex items-center justify-center h-screen">
-                <div class="bg-gray-100 rounded-lg shadow-lg w-80 max-md:w-96 overflow-yauto p-4">
+                <div class="bg-gray-100 rounded-lg shadow-lg w-80 max-md:w-96 overflow-y-auto p-4">
                     <div class="flex items-center justify-between border-b pb-2">
     
                         <h2 class="text-xl font-bold">詳細な天気データ</h2>
@@ -76,7 +76,7 @@
         function closeModal() {
 
             console.log('詳細データ');
-            document.querySelector('#weatherModal').classList.add('hidden');
+            document.querySelector('#weatherModal').classList.add('hidden');            
         }
     </script>
 </body>
