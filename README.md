@@ -8,8 +8,8 @@ Open-Meteo APIを利用して、選択した都市の現在の気温・風速と
 
 ## 使用技術
 
-- PHP 8.2
-- Laravel
+- PHP 8.4
+- Laravel 12
 - Blade
 - Tailwind CSS
 - JavaScript
@@ -38,7 +38,7 @@ Open-Meteo APIを利用して、選択した都市の現在の気温・風速と
 
 **Open-Meteo API**
 
-https://open-meteo.com/
+[https://open-meteo.com/](https://open-meteo.com/)
 
 現在の天気情報と時間別の気温を取得しています。
 
@@ -76,6 +76,8 @@ https://open-meteo.com/
    cp .env.example .env
    ```
 
+   ※ Windows PowerShellでは `Copy-Item .env.example .env` でも作成できます。
+
 5. アプリケーションキーを生成します。
 
    ```bash
@@ -90,9 +92,9 @@ https://open-meteo.com/
 
 7. ブラウザで以下にアクセスします。
 
-   http://127.0.0.1:8000/weather
+   [http://127.0.0.1:8000/weather](http://127.0.0.1:8000/weather)
 
-※ データベースは使用していません。Windows環境では、必要に応じて `.env.example` を `.env` にコピーする操作をPowerShellなどで行ってください。
+※ データベースは使用していません。
 
 ## 今後の改善案
 
